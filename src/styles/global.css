@@ -1,5 +1,5 @@
 /**
-* tailwind stuff 
+* tailwind stuff
 */
 @tailwind base;
 @tailwind components;
@@ -7,7 +7,7 @@
 
 @layer base {
   a {
-    @apply inline-block text-amber-700 text-lg underline hover:text-amber-900;
+    @apply inline-block text-amber-700 underline hover:text-amber-900;
   }
 }
 /*
