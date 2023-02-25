@@ -1,25 +1,30 @@
 ---
-import HeaderLink from './HeaderLink.astro';
-import { SITE_TITLE } from '../consts';
+import HeaderLink from "./HeaderLink.astro";
+import { SITE_TITLE } from "../consts";
 ---
 
-<header>
-	<h2>
+<header class="mb-8">
+	<h2
+		class="my-2 font-title text-6xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-yellow-400 text-border"
+	>
 		{SITE_TITLE}
 	</h2>
-	<nav>
+	<nav class="flex gap-4">
 		<HeaderLink href="/">Home</HeaderLink>
 		<HeaderLink href="/blog">Blog</HeaderLink>
-		<HeaderLink href="/about">About</HeaderLink>
-		<HeaderLink href="https://twitter.com/astrodotbuild" target="_blank">Twitter</HeaderLink>
-		<HeaderLink href="https://github.com/withastro/astro" target="_blank">GitHub</HeaderLink>
+		<HeaderLink href="https://twitter.com/lksh_dev" target="_blank">
+			Twitter
+		</HeaderLink>
+		<HeaderLink href="https://github.com/lukeshafer" target="_blank">
+			GitHub
+		</HeaderLink>
 	</nav>
+	<mr class="pt-2 border-b-2 border-red-800 block"></mr>
 </header>
+
 <style>
-	header {
-		margin: 0em 0 2em;
-	}
-	h2 {
-		margin: 0.5em 0;
+	.text-border {
+		-webkit-text-stroke-color: #78350f;
+		-webkit-text-stroke-width: 2px;
 	}
 </style>

@@ -1,51 +1,41 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+import Page from "./Page.astro";
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<"blog">["data"];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<html lang="en">
-	<head>
-		<BaseHead title={title} description={description} />
-		<style>
-			.title {
-				font-size: 2em;
-				margin: 0.25em 0 0;
-			}
-			hr {
-				border-top: 1px solid #ddd;
-				margin: 1rem 0;
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
-	</head>
-
-	<body>
-		<Header />
-		<main>
-			<article>
-				{heroImage && <img width={720} height={360} src={heroImage} alt="" />}
-				<h1 class="title">{title}</h1>
-				<FormattedDate date={pubDate} />
+<Page title={title} description={description}>
+	<main>
+		<article>
+			<header class="my-4">
 				{
-					updatedDate && (
+					heroImage ? (
+						<img width={720} height={360} src={heroImage} alt="" />
+					) : null
+				}
+				<h1 class="text-4xl font-serif mt-4 mb-2">{title}</h1>
+				<div class="text-stone-500">
+					Published
+					<FormattedDate date={pubDate} />
+				</div>
+				{
+					updatedDate ? (
 						<div class="last-updated-on">
 							Last updated on <FormattedDate date={updatedDate} />
 						</div>
-					)
+					) : null
 				}
 				<hr />
+			</header>
+			<main
+				class="prose prose-stone prose-headings:font-serif prose-headings:text-stone-700 prose-headings:font-normal"
+			>
 				<slot />
-			</article>
-		</main>
-		<Footer />
-	</body>
-</html>
+			</main>
+		</article>
+	</main>
+</Page>

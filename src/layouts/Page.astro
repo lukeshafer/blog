@@ -1,0 +1,34 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+
+import "@fontsource/montserrat";
+import "@fontsource/vollkorn";
+import "@fontsource/comfortaa/700.css";
+import "@fontsource/fredoka-one";
+import "@fontsource/righteous";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head class="bg-orange-50">
+		<BaseHead
+			title={title ?? SITE_TITLE}
+			description={description ?? SITE_DESCRIPTION}
+		/>
+	</head>
+	<body class="mx-auto p-5 max-w-3xl break-words text-stone-700">
+		<Header title={SITE_TITLE} />
+		<slot />
+		<Footer />
+	</body>
+</html>
