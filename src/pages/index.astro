@@ -1,8 +1,9 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Page from "../layouts/Page.astro";
+import BlogList from "../components/BlogList.astro";
+
 import { getCollection } from "astro:content";
-import FormattedDate from "../components/FormattedDate.astro";
 
 const posts = (await getCollection("blog")).sort(
 	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
@@ -19,29 +20,7 @@ const posts = (await getCollection("blog")).sort(
 		</p>
 		<section class="my-8">
 			<h2 class="text-2xl font-serif">Recent Posts</h2>
-			<ul class="flex flex-col my-3 gap-4">
-				{
-					posts
-						.reverse()
-						.slice(0, 5)
-						.map((post) => (
-							<li>
-								<div class="flex gap-4 items-center">
-									<a href={`/blog/${post.slug}/`}>
-										<h3 class="text-2xl font-serif">
-											{post.data.title}
-										</h3>
-									</a>
-									<FormattedDate
-										date={post.data.pubDate}
-										class="text-stone-500 "
-									/>
-								</div>
-								<p>{post.data.description}</p>
-							</li>
-						))
-				}
-			</ul>
+			<BlogList posts={posts.slice(0, 5)} />
 		</section>
 	</main>
 </Page>
