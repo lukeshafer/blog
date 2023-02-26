@@ -4,7 +4,7 @@ pubDate: "Oct 30 2022"
 description: I'm not proud of it. But I like Tailwind.
 ---
 
-I’m not the first person to say it, but I was wrong about Tailwind. I thought it was just fluff and noise that clogged up HTML, made for people who don’t know CSS well enough to write it properly. Markup and style are separate for a reason, right? Unfortunately for my ego, I’ve eaten my words: I love Tailwind.
+I’m not the first person to say it, but I was wrong about Tailwind. I thought it was just fluff and noise that clogged up HTML, made for people who don’t know CSS well enough to write it properly. Markup and style are separate for a reason, right? Unfortunately for my ego, I’ve eaten my words: I _really_ like Tailwind.
 
 ## What is TailwindCSS?
 
@@ -38,7 +38,7 @@ That second point though, about class granularity - I was absolutely wrong. If y
 
 ## My history with Tailwind
 
-When working on this website _(the one you’re reading)_, I started over and rewrote it MANY times. I use my personal websites to mess with and learn new tools, which leads to a lot of changes very quickly. With this site, I started with Tailwind, and built a few pages with it. Not recognizing its benefits, I decided that it wasn’t for me (yet, at least) and moved all my utility classes into properly scoped css in my [Astro](https://astro.build) components. [I even ranted about it on Twitter](https://twitter.com/lksh_dev/status/1571293300312739840?s=20&t=ovdHUo2JQWzhLES6Z8mAwQ). The transition took a few days (listen, I've got other stuff to do!), but eventually I made a pure CSS version of what I had made before.
+When working on my website [lukeshafer.com](https://lukeshafer.com), I started over and rewrote it MANY times. I use my personal websites to mess with and learn new tools, which leads to a lot of changes very quickly. With this site, I started with Tailwind, and built a few pages with it. Not recognizing its benefits, I decided that it wasn’t for me (yet, at least) and moved all my utility classes into properly scoped css in my [Astro](https://astro.build) components. [I even ranted about it on Twitter](https://twitter.com/lksh_dev/status/1571293300312739840?s=20&t=ovdHUo2JQWzhLES6Z8mAwQ). The transition took a few days (listen, I've got other stuff to do!), but eventually I made a pure CSS version of what I had made before.
 
 Fast-forward a week, and I started seeing a lot of love for Tailwind on Twitter and YouTube, especially from self-proclaimed former skeptics. As a _current_ skeptic, I decided, _why not, I’ll give it one more shot_, so I took my CSS, which had grown significantly, and started converting back to Tailwind classes.
 

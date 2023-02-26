@@ -20,13 +20,17 @@ const { title, description } = Astro.props;
 
 <!DOCTYPE html>
 <html lang="en">
-	<head class="bg-orange-50">
+	<head>
 		<BaseHead
 			title={title ?? SITE_TITLE}
 			description={description ?? SITE_DESCRIPTION}
 		/>
 	</head>
-	<body class="mx-auto p-5 max-w-3xl break-words text-stone-700 bg-orange-50">
+	<body
+		class="mx-auto p-5 
+			max-w-3xl break-words 
+			text-stone-700 dark:text-stone-300
+			bg-orange-50 dark:bg-stone-900">
 		<Header title={SITE_TITLE} />
 		<slot />
 		<Footer />
