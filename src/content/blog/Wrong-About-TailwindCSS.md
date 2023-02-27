@@ -78,4 +78,4 @@ Tailwind, on the other hand, has a single config file for all of its settings. Y
 
 ---
 
-Now, all this said, Tailwind isn't perfect, and I do plan to write a counterpoint to this post! In fact, just last week I was muttering to myself why working, frustrated with Tailwind. Overall though, I think it's a VERY powerful and useful framework, and I recommend any skeptic with an open mind to give it an honest shot! You may find yourself surprised, like I did!
+Now, all this said, Tailwind isn't perfect, and I do plan to write a counterpoint to this post! In fact, just last week I was muttering to myself while working, frustrated with Tailwind. Overall though, I think it's a VERY powerful and useful tool, and I recommend any skeptic with an open mind to give it an honest shot! You may find yourself surprised, like I did!

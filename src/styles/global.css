@@ -7,7 +7,7 @@
 
 @layer base {
   a {
-    @apply inline-block text-amber-700 underline hover:text-amber-900 dark:text-amber-500 dark:hover:text-amber-700;
+    @apply text-amber-700 underline hover:text-amber-900 dark:text-amber-500 dark:hover:text-amber-700;
   }
 }
 /*
@@ -34,7 +34,7 @@ img {
 }
 code {
   padding: 2px 5px;
-  @apply bg-gray-200 text-gray-800;
+  @apply bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-gray-200;
 }
 pre {
   padding: 1rem;
