@@ -1,34 +1,52 @@
 ---
-import type { CollectionEntry, } from "astro:content";
-import FormattedDate from "./FormattedDate.astro";
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+import { z } from 'astro:content';
 
 interface Props {
-	posts: CollectionEntry<any>[];
+	posts: CollectionEntry<'blog'>[];
+	collectionName: string;
 }
 
 const { posts } = Astro.props;
+const published = import.meta.env.DEV
+	? addDraftPrefix(posts)
+	: filterOutDrafts(posts);
+
+function filterOutDrafts(posts: Props['posts']) {
+	return posts.filter(
+		(post: unknown) =>
+			z.object({ data: z.object({ draft: z.literal(true) }) }).safeParse(post)
+				.success === false
+	);
+}
+
+function addDraftPrefix(posts: Props['posts']) {
+	return posts.map((post) =>
+		post.data.draft
+			? {
+					...post,
+					data: { ...post.data, title: `(DRAFT) ${post.data.title}` },
+			  }
+			: post
+	);
+}
 ---
 
 <div>
 	<ul class="flex flex-col my-3 gap-4">
 		{
-			posts
-				.map((post) => (
-					<li>
-						<div class="flex gap-x-4 items-center flex-wrap">
-							<a href={`/blog/${post.slug}/`}>
-								<h3 class="text-2xl font-serif">
-									{post.data.title}
-								</h3>
-							</a>
-							<FormattedDate
-								date={post.data.pubDate}
-								class="text-stone-500 "
-							/>
-						</div>
-						<p>{post.data.description}</p>
-					</li>
-				))
+			published.map((post) => (
+				<li>
+					<div class="flex gap-x-4 items-center flex-wrap">
+						<a href={`/blog/${post.slug}/`}>
+							<h3 class="text-2xl font-serif">{post.data.title}</h3>
+						</a>
+						<FormattedDate date={post.data.pubDate} class="text-stone-500 " />
+					</div>
+					<p>{post.data.description}</p>
+				</li>
+			))
 		}
 	</ul>
 </div>
