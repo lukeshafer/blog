@@ -2,10 +2,9 @@
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Page from "../layouts/Page.astro";
 import BlogList from "../components/BlogList.astro";
+import { getBlogPosts } from "../content/utils";
 
-import { getCollection } from "astro:content";
-
-const posts = (await getCollection("blog")).sort(
+const posts = (await getBlogPosts()).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
