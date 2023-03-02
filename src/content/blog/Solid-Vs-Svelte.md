@@ -12,7 +12,7 @@ With so many options available, I want to focus on **my two favorites: Solid and
 
 ### Svelte
 
-Svelte, [as creator Rich Harris describes](https://gist.github.com/Rich-Harris/0f910048478c2a6505d1c32185b61934), is a language for building reactive user interfaces. It takes a bit of an idealistic approach by taking HTML, CSS, and JavaScript, and **extending them with new features**, all wrapped in a .svelte file. The Svelte compiler then takes those files and generates client-side JavaScript to produce the application you wrote. It takes care of reactivity and updating the DOM through, for lack of a better term, _magic_.
+Svelte, [as creator Rich Harris describes](https://gist.github.com/Rich-Harris/0f910048478c2a6505d1c32185b61934), is a language for building reactive user interfaces. It takes a bit of an idealistic approach by taking HTML, CSS, and JavaScript, and **extending them with new features**, all wrapped in a .svelte file. The Svelte compiler then takes those files and generates client-side JavaScript to produce the application you wrote. It takes care of reactivity and updating the DOM through, for lack of a better term, _magic_ (i.e. _compilation_).
 
 Here’s a quick example of a simple counter in Svelte:
 
@@ -24,7 +24,7 @@ Here’s a quick example of a simple counter in Svelte:
 <button on:click={() => count = count + 1}>{count}</button>
 ```
 
-You can mess with Svelte more in the [Svelte REPL](https://svelte.dev/repl/)!
+_You can mess with Svelte more in the [Svelte REPL](https://svelte.dev/repl/)!_
 
 ## Solid
 
@@ -46,7 +46,7 @@ export function Counter() {
 }
 ```
 
-You can mess around with Solid in the [Solid Playground](https://playground.solidjs.com/)!
+_You can mess around with Solid in the [Solid Playground](https://playground.solidjs.com/)!_
 
 As an aside - Solid is often introduced as a “lighter, faster React,” much in the way you might introduce someone to Preact (which actually calls itself a “fast alternative to React”). Though I understand this notion, **I fundamentally disagree with it**. Though Solid, at a first glance, looks like modern React in the way it uses JSX and functional, stateful primitives (createSignal vs useState, createEffect vs useEffect), those similarities are surface deep. As soon as you start using them, you quickly learn that the two are _very_ different, in many ways we’ll discuss shortly.
 
@@ -56,9 +56,9 @@ If you’re at all familiar with writing web apps, you’ll quickly find that bo
 
 ### Svelte
 
-When I first wrote Svelte code, my immediate thought was “oh, THIS is how the web should just work.” Variables are automatically reactive, JS and HTML easily interact in a declarative manner, and CSS is automatically scoped to the component. Svelte extends the existing languages we know, and easily supports transpiled languages like TypeScript and Sass/scss. It’s what I’d consider a very _idealistic_ approach, imagining a world where building websites is simpler for the author*.*
+When I first wrote Svelte code, my immediate thought was “oh, THIS is how the web should just work.” Variables are automatically reactive, JS and HTML easily interact in a declarative manner, and CSS is automatically scoped to the component. Svelte extends the existing languages we know, and easily supports transpiled languages like TypeScript and Sass/scss. It’s what I’d consider a very _idealistic_ approach, imagining a world where building websites is simpler for the author.
 
-Svelte also cares a lot about reducing the amount of code you write. Take a look at the various examples [on Component Party](https://component-party.dev) and you’ll immediately find that Svelte code tends to be shorter and more concise — relying on the “magic” of the compiler to handle reactivity. It requires you to put a lot of trust in the compiler, but the results tend to be a cleaner, easier to manage codebase.
+Svelte also cares a lot about reducing the amount of code you write. Take a look at the various examples on [Component Party](https://component-party.dev) and you’ll immediately find that Svelte code tends to be shorter and more concise than other frameworks — relying on the “magic” of the compiler to handle reactivity. It requires you to put a lot of trust in the compiler, but the results tend to be a cleaner, easier to manage codebase.
 
 ### Solid
 
