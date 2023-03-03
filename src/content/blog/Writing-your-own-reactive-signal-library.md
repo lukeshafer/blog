@@ -1,8 +1,11 @@
 ---
-title: 'Writing your own reactive signal library'
-pubDate: 'Mar 2 2023'
-description: 'The surprisingly simple construct powering SolidJS and other signal-based libraries!'
+title: Writing Your Own Reactive Signal Library
+pubDate: Mar 2 2023
+description: >-
+  The surprisingly simple construct powering SolidJS and other signal-based
+  libraries!
 draft: true
+published: false
 ---
 
 Lately, the frontend space has been exploding with a newfound admiration for _fine-grained reactivity_, a style of building reactive user interfaces by using three primary primitives: signals, effects, and memos. Recently, we’ve seen frameworks like [Angular](https://github.com/angular/angular/discussions/49090), [Preact](https://preactjs.com/guide/v10/signals/), and [Qwik](https://qwik.builder.io/docs/components/state/) add signals to their existing frameworks. And of course, [SolidJS](https://www.solidjs.com/), my framework of choice, and creator Ryan Carniato, have led the recent popularity in signals for frontend frameworks.
@@ -23,11 +26,11 @@ If all of these libraries already offer signal primitives, why should we write o
 
 ## The Basics
 
-For our basic reactive system, we’re going to create two primitives: `createSignal` and `createEffect`. There is a third important primitive to reactivity, the memo (aka `createMemo`), but we it’s not necessary for the basic example we’re using today.
+For our basic reactive system, we’re going to create two primitives: `createSignal` and `createEffect`. There is a third important primitive to reactivity, the memo (aka `createMemo`), but it’s not necessary for our basic.
 
 `createSignal` will be used to read and set a reactive value, and `createEffect` will be used to run side effects whenever that value changes.
 
-Let’s go ahead and create the shell of `createSignal`:
+Let’s go ahead and create the shell of `createSignal` in TypeScript:
 
 ```tsx
 function createSignal<T>(initialValue?: T) {
@@ -52,7 +55,7 @@ To break this down:
 
 So far, this isn’t any more useful than just declaring a mutable variable with `let`. What’s “reactive” about this? Well, it’s not! By themselves, signals are no more than glorified variables. It’s only when we start using other primitives, like effects, that we see their real power.
 
-Remember, a signal holds “a list of subscriptions.” Those subscriptions come from our `createEffect` function, which takes a callback function as an input and sets it as a global listener, to be read by signals. Let’s take a look:
+Remember, a signal holds “a list of subscriptions.” Those subscriptions come from `createEffect`, which takes a callback function as an input and sets it as a global listener, to be read by signals. Let’s take a look:
 
 ```tsx
 let currentListener: (() => void) | undefined = undefined;
@@ -95,9 +98,9 @@ function createSignal<T>(initialValue?: T) {
 }
 ```
 
-Now, by tracking the subscribers in their own closure, any usage of a signal inside an effect **\*\***\***\*\***automatically**\*\***\***\*\*** tracks it, and re-runs that effect anytime the value changes!
+Now, by tracking the subscribers in their own closure, any usage of a signal inside an effect _automatically_ tracks it, and re-runs that effect anytime the value changes!
 
-Believe it or not - \***\*\*\*\*\***that’s it.\***\*\*\*\*\*** There are a lot of ways this code can be improved and optimized, but it IS reactive, and can be used right away! Here’s a complete snippet for your usage:
+Believe it or not, _that’s it._ There are a lot of ways this code can be improved and optimized for the end user, but it IS reactive, and can be used right away! Here’s a complete snippet for your usage:
 
 ```tsx
 let currentListener: (() => void) | undefined = undefined;
@@ -152,16 +155,15 @@ document.body.append(button);
 
 [https://codepen.io/lukeshafer/pen/MWqJaQw](https://codepen.io/lukeshafer/pen/MWqJaQw)
 
-In this example, instead of writing to `button.innerText` directly, we update our count signal using `setCount()`. Then, we use an effect to set `button.innerText` to the `count` signal’s value.
+In this example, instead of writing to `button.innerText` directly, we update our count signal using `setCount()`. Then we use an effect to set `button.innerText` to the `count` signal’s value.
 
-Now, instead of tying the action of clicking to the visible count value, we get to track the count as its own value. This means other actions or functions could update `count`, or use it’s value, and the value will ALWAYS synchronize. This save you the trouble of needing to remember every place you used it, and it offers very little runtime overhead on top of the typical vanilla method, especially compared to a virtual DOM.
+Now, instead of tying the action of clicking to the visible count value, we get to track the count as its own value. This means other actions or functions could update `count`, or use it’s value, and the value will _always_ synchronize in the DOM. This save you the trouble of needing to remember every place you used it, and it offers very little runtime overhead on top of the typical vanilla method, especially compared to a virtual DOM.
 
-One issue with this code, though, is it’s still pretty verbose. On top of the already wordy API for updating the DOM imperatively, we now need to wrap any DOM interactions that use signals with effects, leading to a lot of repeated boilerplate. It’s fine for smaller, simpler interactivity, but as soon as you’re working with multiple signals in multiple DOM locations, you’re going to get wordy **\*\***\***\*\***very quickly.**\*\***\***\*\***
+One issue with this code, though, is it’s still pretty verbose. On top of the already wordy API for updating the DOM imperatively, we now need to wrap any DOM interactions that use signals with effects, leading to a lot of repeated boilerplate. It’s fine for smaller, simpler interactivity, but as soon as you’re working with multiple signals in multiple DOM locations, you’re going to get wordy _very quickly._
 
 Now, let’s re-introduce SolidJS, and how it takes a few simple rules to make a powerful framework. Let’s see what our above code looks like in Solid:
 
 ```tsx
-// without comments
 export function Counter() {
 	const [count, setCount] = createSignal(0);
 
@@ -191,8 +193,6 @@ export function Counter() {
 }
 ```
 
-As you can see, any call to a signal in the JSX results in that expression being wrapped in a `createEffect` automatically. This means that any usage of a signal in JSX is automatically reactive, and the DOM will update on its own when that signal is updated. You only need to create
+As you can see, any call to a signal in the JSX results in that expression being wrapped in a `createEffect` automatically. This specific behavior is the main reason Solid uses a compiler. This means that any usage of a signal in JSX is automatically reactive, and the DOM will update on its own when that signal is updated. 
 
-simplest oauth
-
-simplest oauth
+Of note — the code we wrote isn't _exactly_ what the Solid compiler outputs, as it uses template elements and a few other optimizations to lead to the best possible performance. Still, the compiler's output is still readable, and I highly recommend messing with [the Solid playground](https://playground.solidjs.com) to get a better feel for how it transforms your code, as it's very valuable to understand what you're shipping to your users!
