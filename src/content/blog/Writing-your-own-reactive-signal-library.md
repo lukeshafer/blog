@@ -5,7 +5,6 @@ description: >-
   The surprisingly simple construct powering SolidJS and other signal-based
   libraries!
 draft: true
-published: false
 ---
 
 Lately, the frontend space has been exploding with a newfound admiration for _fine-grained reactivity_, a style of building reactive user interfaces by using three primary primitives: signals, effects, and memos. Recently, we’ve seen frameworks like [Angular](https://github.com/angular/angular/discussions/49090), [Preact](https://preactjs.com/guide/v10/signals/), and [Qwik](https://qwik.builder.io/docs/components/state/) add signals to their existing frameworks. And of course, [SolidJS](https://www.solidjs.com/), my framework of choice, and creator Ryan Carniato, have led the recent popularity in signals for frontend frameworks.
@@ -154,6 +153,8 @@ document.body.append(button);
 (insert actual example here with a functional button)
 
 [https://codepen.io/lukeshafer/pen/MWqJaQw](https://codepen.io/lukeshafer/pen/MWqJaQw)
+
+<iframe src="https://codepen.io/lukeshafer/embed/MWqJaQw />
 
 In this example, instead of writing to `button.innerText` directly, we update our count signal using `setCount()`. Then we use an effect to set `button.innerText` to the `count` signal’s value.
 
