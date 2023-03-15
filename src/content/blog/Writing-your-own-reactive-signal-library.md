@@ -12,7 +12,7 @@ Lately, the frontend space has been exploding with a newfound admiration for _fi
 
 The name “signal” isn’t particularly descriptive, so it can be a bit confusing at first as to what benefits they offer, and how they differ from things like [RxJS Observables](https://rxjs.dev/guide/observable). SolidJS offers a solid (heh) definition:
 
-> Signals are event emitters that hold a list of subscriptions. They notify their subscribers whenever their value changes."
+> Signals are event emitters that hold a list of subscriptions. They notify their subscribers whenever their value changes.
 
 -- <cite>SolidJS Docs</cite>
 
@@ -24,20 +24,20 @@ If all of these libraries already offer signal primitives, why should we write o
 
 ## The Basics
 
-For our basic reactive system, we’re going to create two primitives: `createSignal` and `createEffect`. There is a third important primitive to reactivity, the memo (aka `createMemo`), but it’s not necessary for our basic.
+For our basic reactive system, we’re going to create two primitives: `createSignal` and `createEffect`. There is a third important primitive to reactivity, the memo (aka `createMemo`), but it’s not necessary for our basic demo.
 
 `createSignal` will be used to read and set a reactive value, and `createEffect` will be used to run side effects whenever that value changes.
 
-Let’s go ahead and create the shell of `createSignal` in TypeScript:
+Let’s go ahead and create the shell of `createSignal` in JavaScript:
 
-```tsx
-function createSignal<T>(initialValue?: T) {
+```jsx
+function createSignal(initialValue) {
 	let value = initialValue;
 
 	const read = () => value;
-	const write = (newValue: T) => (value = newValue);
+	const write = (newValue) => (value = newValue);
 
-	return [read, write] as const;
+	return [read, write];
 }
 
 // example usage
@@ -55,10 +55,10 @@ So far, this isn’t any more useful than just declaring a mutable variable with
 
 Remember, a signal holds “a list of subscriptions.” Those subscriptions come from `createEffect`, which takes a callback function as an input and sets it as a global listener, to be read by signals. Let’s take a look:
 
-```tsx
-let currentListener: (() => void) | undefined = undefined;
+```jsx
+let currentListener = undefined;
 
-function createEffect(callback: () => void) {
+function createEffect(callback) {
 	currentListener = callback;
 	callback();
 	currentListener = undefined;
@@ -72,12 +72,12 @@ createEffect(() => {
 
 Here, we set `currentListener` to the effect callback, and then we call the callback function. This is where the magic happens — by calling the callback, any signals used in that callback will be called as well. Next, we need to go back to our `createSignal` function and tweak it to add `currentListener` to a list of subscribers, and call any subscribers on change:
 
-```tsx
-function createSignal<T>(initialValue?: T) {
+```jsx
+function createSignal(initialValue) {
 	let value = initialValue;
 
 	// a set of callback functions, from createEffect
-	const subscribers = new Set<() => void>();
+	const subscribers = new Set();
 
 	const read = () => {
 		if (currentListener !== undefined) {
@@ -86,13 +86,13 @@ function createSignal<T>(initialValue?: T) {
 		}
 		return value;
 	};
-	const write = (newValue: T) => {
+	const write = (newValue) => {
 		value = newValue;
 		// after setting the value, run any subscriber, aka effect, functions
 		subscribers.forEach((fn) => fn());
 	};
 
-	return [read, write] as const;
+	return [read, write];
 }
 ```
 
@@ -100,13 +100,13 @@ Now, by tracking the subscribers in their own closure, any usage of a signal ins
 
 Believe it or not, _that’s it._ There are a lot of ways this code can be improved and optimized for the end user, but it IS reactive, and can be used right away! Here’s a complete snippet for your usage:
 
-```tsx
-let currentListener: (() => void) | undefined = undefined;
+```jsx
+let currentListener = undefined;
 
-function createSignal<T>(initialValue?: T) {
+function createSignal(initialValue) {
 	let value = initialValue;
 
-	const subscribers = new Set<() => void>();
+	const subscribers = new Set();
 
 	const read = () => {
 		if (currentListener !== undefined) {
@@ -114,15 +114,15 @@ function createSignal<T>(initialValue?: T) {
 		}
 		return value;
 	};
-	const write = (newValue: T) => {
+	const write = (newValue) => {
 		value = newValue;
 		subscribers.forEach((fn) => fn());
 	};
 
-	return [read, write] as const;
+	return [read, write];
 }
 
-function createEffect(callback: () => void) {
+function createEffect(callback) {
 	currentListener = callback;
 	callback();
 	currentListener = undefined;
@@ -133,7 +133,7 @@ function createEffect(callback: () => void) {
 
 Now that we’ve created basic reactive primitives, let’s put them to use! We can create a simple counter using our signals, all in plain JavaScript:
 
-```tsx
+```jsx
 const [count, setCount] = createSignal(0);
 
 const button = document.createElement('button');
@@ -159,7 +159,7 @@ One issue with this code, though, is it’s still pretty verbose. On top of the 
 
 Now, let’s re-introduce SolidJS, and how it takes a few simple rules to make a powerful framework. Let’s see what our above code looks like in Solid:
 
-```tsx
+```jsx
 export function Counter() {
 	const [count, setCount] = createSignal(0);
 
