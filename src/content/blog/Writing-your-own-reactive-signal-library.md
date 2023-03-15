@@ -1,10 +1,9 @@
 ---
 title: Writing Your Own Reactive Signal Library
-pubDate: Mar 2 2023
+pubDate: Mar 15 2023
 description: >-
   The surprisingly simple construct powering SolidJS and other signal-based
   libraries!
-draft: true
 ---
 
 Lately, the frontend space has been exploding with a newfound admiration for _fine-grained reactivity_, a style of building reactive user interfaces by using three primary primitives: signals, effects, and memos. Recently, we’ve seen frameworks like [Angular](https://github.com/angular/angular/discussions/49090), [Preact](https://preactjs.com/guide/v10/signals/), and [Qwik](https://qwik.builder.io/docs/components/state/) add signals to their existing frameworks. And of course, [SolidJS](https://www.solidjs.com/), my framework of choice, and creator Ryan Carniato, have led the recent popularity in signals for frontend frameworks.
@@ -130,8 +129,6 @@ function createEffect(callback: () => void) {
 }
 ```
 
-// TODO: add section on usage with vanilla javascript
-
 ## Using your Signals
 
 Now that we’ve created basic reactive primitives, let’s put them to use! We can create a simple counter using our signals, all in plain JavaScript:
@@ -149,8 +146,6 @@ button.addEventListener('click', () => {
 
 document.body.append(button);
 ```
-
-(insert actual example here with a functional button)
 
 [https://codepen.io/lukeshafer/pen/MWqJaQw](https://codepen.io/lukeshafer/pen/MWqJaQw)
 
