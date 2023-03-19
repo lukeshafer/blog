@@ -163,7 +163,7 @@ Now, let’s re-introduce SolidJS, and how it takes a few simple rules to make a
 export function Counter() {
 	const [count, setCount] = createSignal(0);
 
-	return <button onClick={() => setCount(count() + 1)}>{count()</button>
+	return <button onClick={() => setCount(count() + 1)}>{count()}</button>
 }
 
 // with comments describing how it maps to our previous code
@@ -189,6 +189,6 @@ export function Counter() {
 }
 ```
 
-As you can see, any call to a signal in the JSX results in that expression being wrapped in a `createEffect` automatically. This specific behavior is the main reason Solid uses a compiler. This means that any usage of a signal in JSX is automatically reactive, and the DOM will update on its own when that signal is updated. 
+As you can see, any call to a signal in the JSX results in that expression being wrapped in a `createEffect` automatically. This specific behavior is the main reason Solid uses a compiler. This means that any usage of a signal in JSX is automatically reactive, and the DOM will update on its own when that signal is updated.
 
 Of note — the code we wrote isn't _exactly_ what the Solid compiler outputs, as it uses template elements and a few other optimizations to lead to the best possible performance. Still, the compiler's output is still readable, and I highly recommend messing with [the Solid playground](https://playground.solidjs.com) to get a better feel for how it transforms your code, as it's very valuable to understand what you're shipping to your users!
